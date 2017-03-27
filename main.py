@@ -54,7 +54,7 @@ def gan(noise, data):
     with tf.Session() as session:
         init = tf.global_variables_initializer()
         session.run(init)
-        steps_num = 10000
+        steps_num = 1000
         for step in range(steps_num):
             session.run(opt_gen)
             session.run(opt_dis)
@@ -69,4 +69,4 @@ print(noise.shape)
 fake_data = gan(noise, real_data)
 plt.hist(real_data, 100, histtype='step', normed=True, label='Real data')
 plt.hist(fake_data, 100, histtype='step', normed=True, label='Fake data')
-plt.show()
+plt.savefig("images/batch.png")
