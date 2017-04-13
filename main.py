@@ -107,6 +107,11 @@ class GAN(object):
 
 class WGAN(GAN):
 
+
+    def _create_models(self):
+        super()._create_models()
+        self.clip_by_value_operator = None
+
     def _loss_gen(self):
         return -tf.reduce_mean(self.dis_fake)
 
@@ -114,8 +119,9 @@ class WGAN(GAN):
         return -tf.reduce_mean(self.dis_real) + tf.reduce_mean(self.dis_fake)
 
     def _dis_post_update(self, session):
-        self.d_params = [tf.clip_by_value(param, -3, 3) for param in self.d_params]
-
+        if self.clip_by_value_operator is None:
+            self.clip_by_value_operator = [param.assign(tf.clip_by_value(param, -3, 3)) for param in self.d_params]
+        session.run(self.clip_by_value_operator)
 
 real_data = gen_data(10000)
 fake_data, dec_boundary = WGAN().train()
