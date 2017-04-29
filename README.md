@@ -13,3 +13,8 @@ A very simple GAN that tries to learn and reproduce a Gaussian distribution. Cod
 
 ![alt tag](https://github.com/melkonyan/toy_gan/blob/master/images/mini_batch.png)
  
+ * One gaussian distribution, WassertsteinGAN, mini-batches
+   * Gen loss: -1
+   * Dis loss: 0.426289
+
+![alt tag](https://github.com/melkonyan/toy_gan/blob/master/images/wgan.png)
